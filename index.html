@@ -15,25 +15,62 @@
             color: #f3f4f6;
         }
 
-        /* Updated hero-bg: Removed background-image CSS, relying on HTML img tag now */
         .hero-bg {
             position: relative;
             height: 70vh;
-            overflow: hidden; /* Ensures the image stays within the header */
+            overflow: hidden;
         }
 
-        .accent-text {
-            color: #8b5cf6; /* Violet accent */
-        }
-
-        /* Artist Card Styling */
         .artist-card {
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         .artist-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.4);
         }
+        .band-card:hover {
+            box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Modal */
+        #artist-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        #artist-modal.open {
+            display: flex;
+        }
+        #modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
+        }
+        #modal-content {
+            position: relative;
+            z-index: 10;
+            background: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 1.25rem;
+            width: 100%;
+            max-width: 860px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.25s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(12px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        #modal-content::-webkit-scrollbar { width: 4px; }
+        #modal-content::-webkit-scrollbar-track { background: #111; }
+        #modal-content::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
     </style>
 </head>
 <body class="antialiased">
@@ -43,20 +80,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0 flex items-center">
-                    <!-- Logo Update: Increased height (h-10 mobile, h-14 desktop) for better visibility -->
-                    <!-- Ensure your logo is WHITE or BRIGHT colored, as the background is black. -->
-                    <img 
-                        src="logowithoutbg.png" 
-                        alt="Agency Logo" 
-                        class="h-10 md:h-14 w-auto object-contain"
-                    >
+                    <a href="https://dayonerecords.net" target="_blank" rel="noopener noreferrer">
+                        <img src="logowithoutbg.png" alt="Agency Logo" class="h-10 md:h-14 w-auto object-contain">
+                    </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#lineup" class="hover:text-violet-400 px-3 py-2 rounded-md text-sm font-medium transition">Lineup</a>
-                        <a href="#artist1" class="hover:text-violet-400 px-3 py-2 rounded-md text-sm font-medium transition">KOHWAY</a>
-                        <a href="#artist2" class="hover:text-violet-400 px-3 py-2 rounded-md text-sm font-medium transition">YOUNG JAY</a>
-                        <a href="#artist2" class="hover:text-violet-400 px-3 py-2 rounded-md text-sm font-medium transition">POLODARED</a>
                         <a href="#contact" class="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-full text-sm font-bold transition">Book Package</a>
                     </div>
                 </div>
@@ -64,27 +94,17 @@
         </div>
     </nav>
 
-    <!-- Hero Section: Pitch Title -->
-    <!-- Structure Changed: Used <img> tag for background + Overlay div for gradient -->
+    <!-- Hero Section -->
     <header class="hero-bg flex items-center justify-center">
-        <!-- 1. Background Image (Change 'src' here to update background) -->
-        <img 
-            src="main.jpeg" 
-            alt="Showcase Background" 
-            class="absolute inset-0 w-full h-full object-cover"
-        >
-        
-        <!-- 2. Dark Gradient Overlay (Ensures text readability) -->
+        <img src="main.jpeg" alt="Showcase Background" class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0a0a0a]"></div>
-
-        <!-- 3. Content (z-10 ensures it sits on top of the image) -->
         <div class="text-center px-4 max-w-5xl mx-auto z-10 relative">
             <p class="text-violet-400 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">SPECIAL CURATION FROM SEOUL</p>
             <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter text-white">
                 K-SOUND <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-600">SHOWCASE</span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-300 mb-10 font-light max-w-3xl mx-auto">
-                Introducing a diverse lineup of Korea's most exciting Hip-Hop stars. Ready for festivals, tours, and global stages.
+                Introducing a diverse lineup of Korea's most exciting artists. Ready for festivals, tours, and global stages.
             </p>
             <a href="#lineup" class="inline-block border border-white hover:bg-white hover:text-black text-white px-8 py-3 rounded-full font-bold transition duration-300">
                 View Roster
@@ -92,294 +112,168 @@
         </div>
     </header>
 
-    <!-- Lineup Overview (Quick Links) -->
-    <section id="lineup" class="py-16 bg-[#0a0a0a]">
+    <!-- Lineup -->
+    <section id="lineup" class="py-20 bg-[#0a0a0a]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold mb-4">THE LINEUP</h2>
                 <div class="w-20 h-1 bg-violet-600 mx-auto"></div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Artist 1 Preview -->
-                <a href="#artist1" class="group relative aspect-[4/5] overflow-hidden rounded-xl artist-card bg-gray-900 block">
-                    <img src="kohway1.jpeg" alt="Artist 1" class="absolute w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/70 to-transparent">
-                        <p class="text-violet-400 text-xs font-bold uppercase mb-1">AFRO-POP</p>
-                        <h3 class="text-2xl font-black text-white">[Kohway]</h3>
-                    </div>
-                </a>
 
-                <!-- Artist 2 Preview -->
-                <a href="#artist2" class="group relative aspect-[4/5] overflow-hidden rounded-xl artist-card bg-gray-900 block">
-                    <img src="youngjay.jpg" alt="Artist 2" class="absolute w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/70 to-transparent">
-                        <p class="text-violet-400 text-xs font-bold uppercase mb-1">Hip-HOp</p>
-                        <h3 class="text-2xl font-black text-white">[Young Jay]</h3>
+            <!-- ===== BAND ===== -->
+            <div class="mb-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl md:text-3xl font-black text-white tracking-tight">BAND</span>
+                        <span class="px-3 py-1 bg-amber-900/40 border border-amber-500/40 rounded-full text-xs font-bold text-amber-400 uppercase tracking-widest">Live Performance</span>
                     </div>
-                </a>
+                    <div class="flex-1 h-px bg-gradient-to-r from-amber-600/50 to-transparent"></div>
+                </div>
 
-                <!-- Artist 3 Preview -->
-                <a href="#artist3" class="group relative aspect-[4/5] overflow-hidden rounded-xl artist-card bg-gray-900 block">
-                    <img src="polodared.jpeg" alt="Artist 3" class="absolute w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500">
-                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/70 to-transparent">
-                        <p class="text-violet-400 text-xs font-bold uppercase mb-1">Hip-Hop</p>
-                        <h3 class="text-2xl font-black text-white">[POLODARED]</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card band-card bg-gray-900">
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-900/30 to-gray-900 flex items-center justify-center">
+                            <i class="fas fa-guitar text-5xl text-amber-800/50"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <p class="text-amber-400 text-xs font-bold uppercase mb-1">Band</p>
+                            <h3 class="text-lg font-black text-white">Coming Soon</h3>
+                        </div>
                     </div>
-                </a>
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card band-card bg-gray-900">
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-900/30 to-gray-900 flex items-center justify-center">
+                            <i class="fas fa-drum text-5xl text-amber-800/50"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <p class="text-amber-400 text-xs font-bold uppercase mb-1">Band</p>
+                            <h3 class="text-lg font-black text-white">Coming Soon</h3>
+                        </div>
+                    </div>
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card band-card bg-gray-900">
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-900/30 to-gray-900 flex items-center justify-center">
+                            <i class="fas fa-music text-5xl text-amber-800/50"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <p class="text-amber-400 text-xs font-bold uppercase mb-1">Band</p>
+                            <h3 class="text-lg font-black text-white">Coming Soon</h3>
+                        </div>
+                    </div>
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card band-card bg-gray-900">
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-900/30 to-gray-900 flex items-center justify-center">
+                            <i class="fas fa-microphone text-5xl text-amber-800/50"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <p class="text-amber-400 text-xs font-bold uppercase mb-1">Band</p>
+                            <h3 class="text-lg font-black text-white">Coming Soon</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- ================= ARTIST 1 SECTION ================= -->
-    <section id="artist1" class="py-20 bg-[#111] border-t border-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
-                <div>
-                    <span class="px-3 py-1 bg-violet-900/50 border border-violet-500/50 rounded-full text-xs font-bold text-violet-300 mb-3 inline-block">Artist 01</span>
-                    <h2 class="text-5xl font-black text-white">[Kohway]</h2>
-                    <p class="text-xl text-gray-400 mt-2">Genre: AFRO-POP</p>
-                </div>
-                <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="https://open.spotify.com/artist/2v9PvAakxqkcjtXU7SzlQP?si=-gO7F0gcR8aSlrpmy1wVTA" class="text-gray-400 hover:text-green-500 text-2xl"><i class="fab fa-spotify"></i></a>
-                    <a href="https://www.instagram.com/kohway/" class="text-gray-400 hover:text-pink-500 text-2xl"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@Kohwaymusic" class="text-gray-400 hover:text-red-500 text-2xl"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <!-- Info Column (5/12) -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="bg-[#1a1a1a] p-6 rounded-xl border border-gray-800">
-                        <p class="text-gray-300 leading-relaxed mb-4">
-                            "Korea No.1 Afro-pop Musician"
-                        </p>
-                        <p class="text-sm text-gray-400 leading-relaxed">
-Kohway is an Afropop artist known for blending smooth melodies with rhythmic African influences and contemporary pop sounds. His breakout song “Runaway” went viral across social media platforms, helping him reach a global audience and establish himself as a rising name in the Afropop scene. He has also collaborated with Nigerian hip-hop star Ice Prince, a partnership that strengthened his presence in the African music industry and showcased his versatility as an artist.                    </div>
-                    
-                        <!-- Discography Section (Replaces Stats) -->
-                    <div class="bg-[#1a1a1a] p-5 rounded-xl border border-gray-800">
-                        <h4 class="text-xs font-bold text-gray-500 uppercase mb-4 tracking-widest border-b border-gray-800 pb-2">Selected Discography</h4>
-                        <ul class="space-y-4">
-                            <!-- Wrapped in <a> tags for linking -->
-                            <li>
-                                <a href="https://open.spotify.com/album/73hxiJeawJRJO0vSplRZlq?si=oS02uEzRTsaBzyRERa5GMw" target="_blank" class="flex items-center group cursor-pointer hover:bg-white/5 p-2 -m-2 rounded-lg transition">
-                                    <div class="w-10 h-10 rounded bg-violet-900/20 flex items-center justify-center text-violet-400 mr-4 group-hover:bg-violet-600 group-hover:text-white transition">
-                                        <i class="fas fa-compact-disc text-lg"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="text-white font-bold text-sm group-hover:text-violet-400 transition flex items-center">
-                                            [Afro Tape] <i class="fas fa-external-link-alt text-[10px] ml-2 opacity-0 group-hover:opacity-100 transition text-violet-500"></i>
-                                        </p>
-                                        <p class="text-xs text-gray-500">2023 • EP</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank" class="flex items-center group cursor-pointer hover:bg-white/5 p-2 -m-2 rounded-lg transition">
-                                    <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-gray-400 mr-4 group-hover:bg-violet-600 group-hover:text-white transition">
-                                        <i class="fas fa-music text-lg"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="text-white font-bold text-sm group-hover:text-violet-400 transition flex items-center">
-                                            [땀범벅 Feat.YUJU of GFRIEND] <i class="fas fa-external-link-alt text-[10px] ml-2 opacity-0 group-hover:opacity-100 transition text-violet-500"></i>
-                                        </p>
-                                        <p class="text-xs text-gray-500">2023 • Single</p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
+            <!-- ===== HIP-HOP & POP ===== -->
+            <div>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl md:text-3xl font-black text-white tracking-tight">HIP-HOP <span class="text-violet-400">&amp;</span> POP</span>
+                        <span class="px-3 py-1 bg-violet-900/40 border border-violet-500/40 rounded-full text-xs font-bold text-violet-400 uppercase tracking-widest">Urban Sound</span>
                     </div>
+                    <div class="flex-1 h-px bg-gradient-to-r from-violet-600/50 to-transparent"></div>
                 </div>
 
-                <!-- Media Column (7/12) -->
-                <div class="lg:col-span-7">
-                    <div class="aspect-video bg-gray-900 rounded-xl overflow-hidden border border-gray-800 mb-4">
-                        <!-- FIX: Added 'allow' attributes for better browser compatibility. -->
-                        <!-- IMPORTANT: Use 'https://www.youtube.com/embed/VIDEO_ID' format, NOT 'watch?v=' -->
-                        <iframe 
-                            class="w-full h-full" 
-                            src="https://www.youtube.com/embed/wp2O2TdWzZU" 
-                            title="Artist 1 Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Kohway -->
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card bg-gray-900"
+                         onclick="openModal('kohway')">
+                        <img src="kohway1.jpeg" alt="Kohway" class="absolute w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <span class="text-white text-xs font-bold bg-white/10 backdrop-blur-sm px-3 py-2 rounded-full border border-white/20">View Profile</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <p class="text-violet-400 text-xs font-bold uppercase mb-1">AFRO-POP</p>
+                            <h3 class="text-lg font-black text-white">KOHWAY</h3>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-between text-sm text-gray-500 px-2">
-                        <span><i class="fas fa-play-circle mr-2"></i> Featured Live Performance</span>
-                        <a href="#" class="text-violet-400 hover:text-white transition">Full EPK <i class="fas fa-arrow-right ml-1"></i></a>
+
+                    <!-- Young Jay -->
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card bg-gray-900"
+                         onclick="openModal('youngjay')">
+                        <img src="youngjay.jpg" alt="Young Jay" class="absolute w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <span class="text-white text-xs font-bold bg-white/10 backdrop-blur-sm px-3 py-2 rounded-full border border-white/20">View Profile</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <p class="text-violet-400 text-xs font-bold uppercase mb-1">Hip-Hop</p>
+                            <h3 class="text-lg font-black text-white">YOUNG JAY</h3>
+                        </div>
+                    </div>
+
+                    <!-- POLODARED -->
+                    <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card bg-gray-900"
+                         onclick="openModal('polodared')">
+                        <img src="polodared.jpeg" alt="POLODARED" class="absolute w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <span class="text-white text-xs font-bold bg-white/10 backdrop-blur-sm px-3 py-2 rounded-full border border-white/20">View Profile</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <p class="text-violet-400 text-xs font-bold uppercase mb-1">Hip-Hop</p>
+                            <h3 class="text-lg font-black text-white">POLODARED</h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= ARTIST 2 SECTION ================= -->
-    <section id="artist2" class="py-20 bg-[#0a0a0a] border-t border-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header (Right Aligned for variety) -->
-            <div class="flex flex-col md:flex-row-reverse md:items-end justify-between mb-8">
-                <div class="text-right">
-                    <span class="px-3 py-1 bg-pink-900/50 border border-pink-500/50 rounded-full text-xs font-bold text-pink-300 mb-3 inline-block">Artist 02</span>
-                    <h2 class="text-5xl font-black text-white">[ARTIST NAME 02]</h2>
-                    <p class="text-xl text-gray-400 mt-2">Genre: K-Pop / Dance Performance</p>
-                </div>
-                <div class="flex gap-4 mt-4 md:mt-0 justify-end md:justify-start">
-                    <a href="#" class="text-gray-400 hover:text-green-500 text-2xl"><i class="fab fa-spotify"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-pink-500 text-2xl"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-red-500 text-2xl"><i class="fab fa-youtube"></i></a>
+    <!-- ===== ARTIST MODAL ===== -->
+    <div id="artist-modal">
+        <div id="modal-backdrop" onclick="closeModal()"></div>
+        <div id="modal-content">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-400 hover:text-white transition">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Header Image -->
+            <div class="relative h-56 overflow-hidden rounded-t-2xl">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover object-top">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-[#111]"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <span id="modal-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-2 inline-block"></span>
+                    <h2 id="modal-name" class="text-4xl font-black text-white"></h2>
+                    <p id="modal-genre" class="text-gray-400 mt-1 text-sm"></p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <!-- Media Column First (7/12) -->
-                <div class="lg:col-span-7 order-2 lg:order-1">
-                    <div class="aspect-video bg-gray-900 rounded-xl overflow-hidden border border-gray-800 mb-4">
-                         <!-- FIX: Added 'allow' attributes -->
-                        <iframe 
-                            class="w-full h-full" 
-                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                            title="Artist 2 Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="flex items-center justify-between text-sm text-gray-500 px-2">
-                         <a href="#" class="text-violet-400 hover:text-white transition"><i class="fas fa-arrow-left ml-1"></i> Full EPK</a>
-                        <span>Featured Music Video <i class="fas fa-music mr-2"></i></span>
-                    </div>
+            <!-- Body -->
+            <div class="p-6 space-y-5">
+                <!-- SNS Links -->
+                <div id="modal-links" class="flex gap-5"></div>
+
+                <!-- Bio -->
+                <div class="bg-[#1a1a1a] p-5 rounded-xl border border-gray-800">
+                    <p id="modal-tagline" class="text-white font-bold mb-3 italic text-sm"></p>
+                    <p id="modal-bio" class="text-sm text-gray-400 leading-relaxed"></p>
                 </div>
 
-                <!-- Info Column (5/12) -->
-                <div class="lg:col-span-5 space-y-6 order-1 lg:order-2 text-right">
-                    <div class="bg-[#151515] p-6 rounded-xl border border-gray-800">
-                        <p class="text-gray-300 leading-relaxed mb-4">
-                            "Captivating choreography and catchy hooks."
-                        </p>
-                        <p class="text-sm text-gray-400 leading-relaxed">
-                            [Artist Name 02] is a performance powerhouse. With viral hits on TikTok and a strong visual identity, they bring the full K-Pop experience to any stage.
-                        </p>
-                    </div>
-                    
-                    <!-- Discography Section (Replaces Stats) -->
-                    <div class="bg-[#151515] p-5 rounded-xl border border-gray-800 text-left">
-                        <h4 class="text-xs font-bold text-gray-500 uppercase mb-4 tracking-widest border-b border-gray-800 pb-2 text-right">Selected Discography</h4>
-                        <ul class="space-y-4">
-                            <li class="flex items-center flex-row-reverse group cursor-pointer text-right">
-                                <div class="w-10 h-10 rounded bg-pink-900/20 flex items-center justify-center text-pink-400 ml-4 group-hover:bg-pink-600 group-hover:text-white transition">
-                                    <i class="fas fa-compact-disc text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white font-bold text-sm group-hover:text-pink-400 transition">[Mini Album Title]</p>
-                                    <p class="text-xs text-gray-500">2024 • EP</p>
-                                </div>
-                            </li>
-                            <li class="flex items-center flex-row-reverse group cursor-pointer text-right">
-                                <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-gray-400 ml-4 group-hover:bg-pink-600 group-hover:text-white transition">
-                                    <i class="fas fa-music text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white font-bold text-sm group-hover:text-pink-400 transition">[Viral Hit Song]</p>
-                                    <p class="text-xs text-gray-500">2023 • Single</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                <!-- YouTube -->
+                <div class="aspect-video bg-gray-900 rounded-xl overflow-hidden border border-gray-800">
+                    <iframe id="modal-video" class="w-full h-full" src="" title="Artist Video"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- ================= ARTIST 3 SECTION ================= -->
-    <section id="artist3" class="py-20 bg-[#111] border-t border-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
-                <div>
-                    <span class="px-3 py-1 bg-blue-900/50 border border-blue-500/50 rounded-full text-xs font-bold text-blue-300 mb-3 inline-block">Artist 03</span>
-                    <h2 class="text-5xl font-black text-white">[ARTIST NAME 03]</h2>
-                    <p class="text-xl text-gray-400 mt-2">Genre: R&B / Soul</p>
-                </div>
-                <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-green-500 text-2xl"><i class="fab fa-spotify"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-pink-500 text-2xl"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-red-500 text-2xl"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <!-- Info Column (5/12) -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="bg-[#1a1a1a] p-6 rounded-xl border border-gray-800">
-                        <p class="text-gray-300 leading-relaxed mb-4">
-                            "Soulful vocals that melt hearts."
-                        </p>
-                        <p class="text-sm text-gray-400 leading-relaxed">
-                            A voice that defines a generation. [Artist Name 03] combines traditional R&B sensibilities with modern Korean production. Perfect for sunset slots and intimate venues.
-                        </p>
-                    </div>
-                    
-                    <!-- Discography Section (Replaces Stats) -->
-                    <div class="bg-[#1a1a1a] p-5 rounded-xl border border-gray-800">
-                        <h4 class="text-xs font-bold text-gray-500 uppercase mb-4 tracking-widest border-b border-gray-800 pb-2">Selected Discography</h4>
-                        <ul class="space-y-4">
-                            <li class="flex items-center group cursor-pointer">
-                                <div class="w-10 h-10 rounded bg-blue-900/20 flex items-center justify-center text-blue-400 mr-4 group-hover:bg-blue-600 group-hover:text-white transition">
-                                    <i class="fas fa-compact-disc text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white font-bold text-sm group-hover:text-blue-400 transition">[Studio Album Name]</p>
-                                    <p class="text-xs text-gray-500">2023 • LP</p>
-                                </div>
-                            </li>
-                            <li class="flex items-center group cursor-pointer">
-                                <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-gray-400 mr-4 group-hover:bg-blue-600 group-hover:text-white transition">
-                                    <i class="fas fa-music text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white font-bold text-sm group-hover:text-blue-400 transition">[OST Title Track]</p>
-                                    <p class="text-xs text-gray-500">2022 • OST Part.1</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Media Column (7/12) -->
-                <div class="lg:col-span-7">
-                    <div class="aspect-video bg-gray-900 rounded-xl overflow-hidden border border-gray-800 mb-4">
-                         <!-- FIX: Added 'allow' attributes -->
-                        <iframe 
-                            class="w-full h-full" 
-                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                            title="Artist 3 Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="flex items-center justify-between text-sm text-gray-500 px-2">
-                        <span><i class="fas fa-play-circle mr-2"></i> Live Session</span>
-                        <a href="#" class="text-violet-400 hover:text-white transition">Full EPK <i class="fas fa-arrow-right ml-1"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Proposal Summary & Contact -->
+    <!-- Contact -->
     <section id="contact" class="py-20 bg-gradient-to-br from-violet-900 to-[#0a0a0a]">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold text-white mb-8">PROPOSAL OPTIONS</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <!-- Option 1 -->
                 <div class="bg-black/30 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:bg-black/40 transition">
                     <h3 class="text-xl font-bold text-white mb-2">Full Showcase</h3>
                     <p class="text-gray-300 text-sm mb-4">Book the entire roster for a branded "K-Night" event.</p>
@@ -388,12 +282,10 @@ Kohway is an Afropop artist known for blending smooth melodies with rhythmic Afr
                         <li><i class="fas fa-check text-green-500 mr-2"></i> Discounted package fee</li>
                     </ul>
                 </div>
-                
-                <!-- Option 2 -->
                 <div class="bg-black/30 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:bg-black/40 transition">
                     <h3 class="text-xl font-bold text-white mb-2">Individual Booking</h3>
                     <p class="text-gray-300 text-sm mb-4">Select specific artists for your festival lineup.</p>
-                     <ul class="text-left text-sm text-gray-400 space-y-2 mb-4">
+                    <ul class="text-left text-sm text-gray-400 space-y-2 mb-4">
                         <li><i class="fas fa-check text-green-500 mr-2"></i> Flexible slots</li>
                         <li><i class="fas fa-check text-green-500 mr-2"></i> Individual riders</li>
                     </ul>
@@ -404,16 +296,102 @@ Kohway is an Afropop artist known for blending smooth melodies with rhythmic Afr
                 <h3 class="text-xl font-bold text-white mb-4">CONTACT US</h3>
                 <div class="space-y-3">
                     <p class="text-gray-400"><span class="font-bold text-white block">Booking Agent</span> [Name]</p>
-                    <a href="mailto:booking@agency.com" class="text-violet-400 hover:text-white block text-lg font-medium">booking@agency.com</a>
                     <p class="text-gray-500 text-sm">+82-10-0000-0000</p>
                 </div>
             </div>
             
             <div class="mt-12 text-sm text-gray-600">
-                &copy; 2024 [Agency Name]. All Rights Reserved.
+                <p>© 2025 Day One Records. All rights reserved.</p>
             </div>
         </div>
     </section>
 
+    <script>
+        const artists = {
+            kohway: {
+                name: 'KOHWAY',
+                genre: 'Genre: AFRO-POP',
+                tagline: '"Korea No.1 Afro-pop Musician"',
+                bio: 'Kohway is an Afropop artist known for blending smooth melodies with rhythmic African influences and contemporary pop sounds. His breakout song "Runaway" went viral across social media platforms, helping him reach a global audience and establish himself as a rising name in the Afropop scene. He has also collaborated with Nigerian hip-hop star Ice Prince, a partnership that strengthened his presence in the African music industry and showcased his versatility as an artist.',
+                img: 'kohway1.jpeg',
+                badge: 'AFRO-POP',
+                badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
+                youtube: 'https://www.youtube.com/embed/wp2O2TdWzZU',
+                links: [
+                    { href: 'https://open.spotify.com/artist/2v9PvAakxqkcjtXU7SzlQP', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/kohway/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@Kohwaymusic', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            youngjay: {
+                name: 'YOUNG JAY',
+                genre: 'Genre: Hip-Hop',
+                tagline: '"Captivating energy and catchy hooks."',
+                bio: 'Young Jay is a performance powerhouse. With a strong visual identity and hard-hitting tracks, he brings the full Korean hip-hop experience to any stage.',
+                img: 'youngjay.jpg',
+                badge: 'HIP-HOP',
+                badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
+                youtube: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                links: [
+                    { href: '#', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: '#', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: '#', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            polodared: {
+                name: 'POLODARED',
+                genre: 'Genre: Hip-Hop',
+                tagline: '"Raw energy with undeniable stage presence."',
+                bio: 'POLODARED combines hard-hitting lyricism with modern Korean production. Perfect for festival main stages and intimate club shows alike, his dynamic sets leave audiences wanting more.',
+                img: 'polodared.jpeg',
+                badge: 'HIP-HOP',
+                badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
+                youtube: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                links: [
+                    { href: '#', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: '#', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: '#', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            }
+        };
+
+        function openModal(id) {
+            const a = artists[id];
+            if (!a) return;
+
+            document.getElementById('modal-img').src = a.img;
+            document.getElementById('modal-img').alt = a.name;
+            document.getElementById('modal-name').textContent = a.name;
+            document.getElementById('modal-genre').textContent = a.genre;
+            document.getElementById('modal-tagline').textContent = a.tagline;
+            document.getElementById('modal-bio').textContent = a.bio;
+
+            const badge = document.getElementById('modal-badge');
+            badge.textContent = a.badge;
+            badge.className = `px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-2 inline-block ${a.badgeClass}`;
+
+            document.getElementById('modal-links').innerHTML = a.links.map(l =>
+                `<a href="${l.href}" target="_blank" class="text-gray-400 ${l.color} text-2xl transition"><i class="${l.icon}"></i></a>`
+            ).join('');
+
+            // Reset iframe src to stop previous video, then set new
+            const iframe = document.getElementById('modal-video');
+            iframe.src = '';
+            setTimeout(() => { iframe.src = a.youtube; }, 50);
+
+            document.getElementById('artist-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('artist-modal').classList.remove('open');
+            document.body.style.overflow = '';
+            document.getElementById('modal-video').src = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
 </body>
 </html>
