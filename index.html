@@ -229,7 +229,7 @@
 
                      <!-- Khundipanda -->
                     <div class="group relative aspect-[3/4] overflow-hidden rounded-xl artist-card bg-gray-900"
-                         onclick="openModal('polodared')">
+                         onclick="openModal('khundipanda')">
                         <img src="kdpd.jpg" alt="Khundipanda" class="absolute w-full h-full object-cover opacity-70 group-hover:opacity-100 transition duration-500">
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
                             <span class="text-white text-xs font-bold bg-white/10 backdrop-blur-sm px-3 py-2 rounded-full border border-white/20">View Profile</span>
@@ -309,14 +309,19 @@
                     <p id="modal-bio" class="text-sm text-gray-400 leading-relaxed"></p>
                 </div>
 
-                <!-- YouTube -->
-                <div class="aspect-video bg-gray-900 rounded-xl overflow-hidden border border-gray-800">
-                    <iframe id="modal-video" class="w-full h-full" src="" title="Artist Video"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen>
-                    </iframe>
+                <!-- YouTube Videos -->
+                <div>
+                    <!-- Video Tab Buttons -->
+                    <div id="modal-video-tabs" class="flex gap-2 mb-3 flex-wrap"></div>
+                    <!-- Video Player -->
+                    <div class="aspect-video bg-gray-900 rounded-xl overflow-hidden border border-gray-800">
+                        <iframe id="modal-video" class="w-full h-full" src="" title="Artist Video"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -350,7 +355,7 @@
                 <h3 class="text-xl font-bold text-white mb-4">CONTACT US</h3>
                 <div class="space-y-3">
                     <p class="text-gray-400"><span class="font-bold text-white block">Booking Agent</span> Dayone Music Publishing</p>
-                    <p class="text-gray-500 text-sm">dayonemusicpublishing@gmail.com</p>
+                    <p class="text-gray-500 text-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2c6c3dbcdccc7cfd7d1cbc1d2d7c0cecbd1cacbccc5e2c5cfc3cbce8cc1cdcf">[email&#160;protected]</a></p>
                 </div>
             </div>
             
@@ -360,7 +365,7 @@
         </div>
     </section>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         const artists = {
             kohway: {
                 name: 'KOHWAY',
@@ -371,6 +376,10 @@
                 badge: 'AFRO-POP',
                 badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
                 youtube: 'https://www.youtube.com/embed/wp2O2TdWzZU',
+                lives: [
+                    { label: '기우제 + Crown On My Head | Live', url: 'https://www.youtube.com/embed/fv7dR0RD5O8' },
+                    { label: 'Tempo (Feat. 디젤) | Live', url: 'https://www.youtube.com/embed/A9yMGPIbOWo' },
+                ],
                 links: [
                     { href: 'https://open.spotify.com/artist/2v9PvAakxqkcjtXU7SzlQP', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
                     { href: 'https://www.instagram.com/kohway/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
@@ -380,37 +389,198 @@
             nucksal: {
                 name: 'Nucksal',
                 genre: 'Genre: Hip-Hop',
-                tagline: '"A True Storyteller of Korean Hip-Hop"',
-                bio: 'Nucksal is a highly respected South Korean hip-hop artist celebrated for his exceptional boom-bap sound, crystal-clear diction, and deeply poetic lyrics. Known for his unique high-toned voice and energetic flow, he stands out as a genuine storyteller who bridges the gap between the underground hip-hop scene and mainstream audiences. His breakout came with the critically acclaimed studio album The God of Small Things, a modern classic that resonated deeply with listeners and earned him "Hip Hop Album of the Year" at the Korean Music Awards. He further skyrocketed to massive fame as the runner-up on the hit TV rap competition Show Me the Money 6, proving his undeniable stage presence. Throughout his career, Nucksal has collaborated with top-tier artists like Dynamic Duo, Gaeko, and Jay Park, cementing his legacy as one of the most influential and versatile figures in the K-hip-hop industry..',
+                tagline: '"The Master of Lyricism and Flow"',
+                bio: 'Nucksal is a premier South Korean rapper celebrated for his flawless diction and poetic storytelling. He rose to national stardom as the runner-up on the hit competition Show Me the Money 6, where his high-toned voice and energetic performance captivated audiences. His masterpiece album, The God of Small Things, earned "Hip Hop Album of the Year" at the Korean Music Awards, cementing his reputation as one of the most skilled and respected lyricists in the K-hip-hop scene.',
                 img: 'nucksal.jpeg',
                 badge: 'HIP-HOP',
                 badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
                 youtube: 'https://www.youtube.com/embed/oXCptiQwYVM',
+                lives: [
+                    { label: '넉살 SHOW ME THE MONEY 6 Finale', url: 'https://www.youtube.com/embed/oXCptiQwYVM' },
+                    { label: '넉살 X 까데호 당신께 (Live in 춘천)', url: 'https://www.youtube.com/embed/Ej9oVf0TLHQ' },
+                ],
                 links: [
-                    { href: '#', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
-                    { href: '#', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
-                    { href: '#', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                    { href: 'https://open.spotify.com/artist/6v5cGuRCZKq08nLI4WXJuB?si=pnvBw8K-SQaZAuPBcPViZg', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/nucksal/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@leenucksal', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
                 ]
             },
             polodared: {
                 name: 'POLODARED',
                 genre: 'Genre: Hip-Hop',
-                tagline: '"Raw energy with undeniable stage presence."',
-                bio: 'POLODARED combines hard-hitting lyricism with modern Korean production. Perfect for festival main stages and intimate club shows alike, his dynamic sets leave audiences wanting more.',
-                img: 'polodared.jpeg',
+                tagline: '"The Rising Icon of K-Drill and Melodic Rap"',
+                bio: 'Polodared is a versatile South Korean rapper known for his high-energy delivery and unique, husky tone. He shot to fame with his hit track "LALALA," which showcased his ability to blend catchy melodies with raw drill beats, eventually leading to a star-studded remix featuring Jay Park and Paul Blanco. After making a strong impression on "Show Me the Money 11," he solidified his presence in the scene by joining Dirty Play Records, continuing to push boundaries with his signature "DDC" sound and charismatic style.',
+                img: 'polodared.jpg',
                 badge: 'HIP-HOP',
                 badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
-                youtube: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                youtube: 'https://www.youtube.com/embed/7h1-9I61vk',
+                lives: [
+                    { label: 'LALALA Live @ Rap Public', url: 'https://www.youtube.com/embed/yAe0SHEpJmQ' },
+                    { label: 'SHOW ME THE MONEY 11 Full Performance', url: 'https://www.youtube.com/embed/0Z15v9cLGFw' },
+                ],
                 links: [
-                    { href: '#', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
-                    { href: '#', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
-                    { href: '#', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                    { href: 'https://open.spotify.com/artist/1Ri5P0CfdNxdIkHX6es8Xd?si=ur9AECLnTaeEiUoI_WwdKg', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/polodared/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/channel/UCsnfpIPoKsok3zuAs0Bio9g', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
                 ]
-            }
+            },
+            dsel: {
+                name: 'dsel',
+                genre: 'Genre: Hip-Hop',
+                tagline: '"The Gritty Lyricist of the Underground"',
+                bio: 'dsel (디젤) is a South Korean rapper who debuted under Stoneship and Layback Records in 2017. Known for his rough vocal tone and distinctive rhyme style, he gained wide recognition after appearing on Show Me the Money 9, where he was placed in Team Dynamic Duo with BewhY. He later joined Dejavu Group in 2022, collaborating with artists like Khundi Panda, Fredi Casso, and Deepflow.',
+                img: 'dsel.jpg',
+                badge: 'HIP-HOP',
+                badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
+                youtube: 'https://www.youtube.com/embed/7h1-9I61vk',
+                lives: [
+                    { label: 'Dingo Freestyle Live', url: 'https://www.youtube.com/embed/WQNFpkqXdiI' },
+                    { label: 'SHOW ME THE MONEY 9 Performance', url: 'https://www.youtube.com/embed/tXPfMcGBYGQ' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/57yCT0l4y1QPz1bzF2mQXx', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/dselcozyboy/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@dsel', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            khundipanda: {
+                name: 'KHUNDI PANDA',
+                genre: 'Genre: Hip-Hop',
+                tagline: '"The Artistic Soul of the Korean Underground"',
+                bio: 'Khundi Panda (쿤디판다) is a South Korean rapper and songwriter who debuted in 2017. He became a household name after appearing on Show Me the Money 9 with his breakout track "VVS," which topped the Gaon Digital Chart. His solo albums Garosawk and The Spoiled Child both won Best Rap Album at the Korean Music Awards, cementing his reputation as one of Korea\'s most artistic and introspective lyricists.',
+                img: 'kdpd.jpg',
+                badge: 'HIP-HOP',
+                badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
+                youtube: 'https://www.youtube.com/embed/7h1-9I61vk',
+                lives: [
+                    { label: 'VVS Dingo Freestyle Live', url: 'https://www.youtube.com/embed/EZ03fE6DYSA' },
+                    { label: '쿤디판다 SHOW ME THE MONEY 9', url: 'https://www.youtube.com/embed/gSCvMz91kZo' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/32wJE7JooXm59HxYhy7caU', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/cleanlawnchef/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@KhundiPanda', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            newtown: {
+                name: 'NEWTOWN BANGERS',
+                genre: 'Genre: Hip-Hop',
+                tagline: '"Seoul\'s Independent Underground Collective"',
+                bio: 'NEWTOWN BANGERS is a Seoul-based independent hip-hop collective known for their raw, unfiltered sound and DIY ethos. The crew includes rapper Luci Gang (루시갱), who gained national attention through RAP:PUBLIC. True to their independent spirit, the group blends street-level storytelling with energetic live performances, building a dedicated underground following.',
+                img: 'newtown.png',
+                badge: 'HIP-HOP',
+                badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
+                youtube: 'https://www.youtube.com/embed/7h1-9I61vk',
+                lives: [
+                    { label: 'Luci Gang RAP:PUBLIC Live', url: 'https://www.youtube.com/embed/v8c6NnUBbKA' },
+                    { label: 'NewtownBangers Cypher Live', url: 'https://www.youtube.com/embed/lZzVFORSHq8' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/5lpEfPHS5i3nblRzsm64i9', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/lucigang/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@LuciGang', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            legit: {
+                name: 'LEGIT GOONS',
+                genre: 'Genre: Hip-Hop',
+                tagline: '"Korea\'s Most Beloved Independent Hip-Hop Crew"',
+                bio: 'Legit Goons (리짓군즈) is a South Korean hip-hop collective formed in 2012, consisting of rappers BLNK, Bassagong, Jayho, and JaeDal, alongside producers CODE KUNST, Yosi, and others. Their 2017 album Junk Drunk Love won Album of the Year at the Korean Hip-hop Awards and earned a nomination at the Korean Music Awards. Rooted in indie culture, their music blends laid-back grooves with sharp lyricism and a distinctly Korean character.',
+                img: 'legit.png',
+                badge: 'HIP-HOP',
+                badgeClass: 'bg-violet-900/60 border border-violet-500/50 text-violet-300',
+                youtube: 'https://www.youtube.com/embed/dS5MRHlFHoQ',
+                lives: [
+                    { label: 'Dingo Live - burn', url: 'https://www.youtube.com/embed/dS5MRHlFHoQ' },
+                    { label: 'Party & Bullshit Live', url: 'https://www.youtube.com/embed/QsLCtFAtBJ0' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/4HwHRZI8xz6Zy9vOksqw7R', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/legitgoonsworld/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@LEGITGOONS', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            horim: {
+                name: 'HORIM',
+                genre: 'Genre: R&B / Soul',
+                tagline: '"The Voice of Korean Neo-Soul"',
+                bio: 'Horim (호림) is a Seoul-based neo-soul and R&B singer who debuted in 2015. With a raw, raspy voice reminiscent of D\'Angelo and Anthony Hamilton, he has carved out a unique lane in Korean music. His debut full-length album METROCITY (2018) showcased his soulful artistry, earning multiple nominations at the Korean Hip-hop Awards. He gained wider recognition through the singing competition Singer Again Season 3.',
+                img: 'horim.jpg',
+                badge: 'R&B / SOUL',
+                badgeClass: 'bg-pink-900/60 border border-pink-500/50 text-pink-300',
+                youtube: 'https://www.youtube.com/embed/lLEoxwELcWA',
+                lives: [
+                    { label: 'GOOBY Live Session', url: 'https://www.youtube.com/embed/ouJbo0kctDs' },
+                    { label: '싱어게인3 호림 풀영상', url: 'https://www.youtube.com/embed/lLEoxwELcWA' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/4ewZPWfaF9tFfnX1bPVI6A', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/horimshin/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@HorimShin', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            cadejo: {
+                name: 'CADEJO',
+                genre: 'Genre: Funk / Jazz / Indie',
+                tagline: '"Seoul\'s Premier Jam Band"',
+                bio: 'CADEJO (까데호) is a Seoul-based jam band formed in 2017 by guitarist Kim Jaeho, drummer Lee Taehun, and bassist Kim Dabin. Masters of funk, reggae, jazz, and hip-hop improvisation, no two of their sets are ever alike. They won the Vans Musician Wanted competition in 2019 and gained wider recognition through their acclaimed collaboration album Sincerely Yours with rapper Nucksal in 2022.',
+                img: 'cadejo.jpg',
+                badge: 'FUNK / INDIE',
+                badgeClass: 'bg-amber-900/60 border border-amber-500/50 text-amber-300',
+                youtube: 'https://www.youtube.com/embed/2HL69edL640',
+                lives: [
+                    { label: 'ENDLESS JAM Live', url: 'https://www.youtube.com/embed/2HL69edL640' },
+                    { label: '까데호 X 넉살 당신께 LIVE', url: 'https://www.youtube.com/embed/Ej9oVf0TLHQ' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/296ryPygSSpdsrZJk2x5Up', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/cadejo___/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@CADEJO_LOVE_JAM', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            owall: {
+                name: 'OWALLOIL',
+                genre: 'Genre: Rock / R&B / Soul',
+                tagline: '"Seoul\'s Soulful Rock Trio"',
+                bio: 'OWALLOIL (오월오일) is a 3-member Korean rock and R&B/soul band consisting of Kwak Ji Hyun, Jang Tae Woong, and Ryu Jiho, debuting in 2019. Their music weaves together warm guitar textures, soulful vocals, and rhythmic energy that blurs the lines between indie rock and R&B. Known for their captivating live energy and heartfelt songwriting, they have been a standout presence in Seoul\'s indie music scene.',
+                img: 'owall.webp',
+                badge: 'ROCK / R&B',
+                badgeClass: 'bg-amber-900/60 border border-amber-500/50 text-amber-300',
+                youtube: 'https://www.youtube.com/embed/7h1-9I61vk',
+                lives: [
+                    { label: '오월오일 Live Stage', url: 'https://www.youtube.com/embed/MKX9DfIfvtA' },
+                    { label: '오월오일 EBS Space Live', url: 'https://www.youtube.com/embed/G9dZdBMgH4E' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/59THIwTnvgT7SeGFzocky2', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/owalloil_official/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@OWALLOIL', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            fath: {
+                name: 'FROM ALL TO HUMAN',
+                genre: 'Genre: R&B / Soul / Funk',
+                tagline: '"The Groove-Driven Soul Band of Seoul"',
+                bio: 'From All To Human (프롬올투휴먼) is a Seoul-based R&B and soul band known for their rich, groove-driven sound blending acid jazz, new jack swing, and funk. Winners of the Shinhan Card Rookie Project award, they have released multiple critically acclaimed EPs and collaborated with artists like Deepflow. Their tight live performances and soulful harmonies have built them a devoted fanbase in the Korean indie scene.',
+                img: 'fath.jpeg',
+                badge: 'R&B / SOUL',
+                badgeClass: 'bg-pink-900/60 border border-pink-500/50 text-pink-300',
+                youtube: 'https://www.youtube.com/embed/7h1-9I61vk',
+                lives: [
+                    { label: 'EBS Space Live Session', url: 'https://www.youtube.com/embed/Hqs5grFUFNQ' },
+                    { label: 'From All To Human - Full Live Set', url: 'https://www.youtube.com/embed/QRjvngrTh0o' },
+                ],
+                links: [
+                    { href: 'https://open.spotify.com/artist/70ZE1v0UgSiInAfo8Xqjhj', icon: 'fab fa-spotify', color: 'hover:text-green-400' },
+                    { href: 'https://www.instagram.com/fromalltohuman/', icon: 'fab fa-instagram', color: 'hover:text-pink-400' },
+                    { href: 'https://www.youtube.com/@fromalltohuman', icon: 'fab fa-youtube', color: 'hover:text-red-400' },
+                ]
+            },
+            
         };
 
         function openModal(id) {
-            const a = artists[id];
+            const a = artists[id.toLowerCase()];
             if (!a) return;
 
             document.getElementById('modal-img').src = a.img;
@@ -428,22 +598,45 @@
                 `<a href="${l.href}" target="_blank" class="text-gray-400 ${l.color} text-2xl transition"><i class="${l.icon}"></i></a>`
             ).join('');
 
+            // Build video list: main + lives
+            const videos = [{ label: '🎬 Official', url: a.youtube }];
+            if (a.lives) a.lives.forEach(l => videos.push(l));
+
+            const tabsEl = document.getElementById('modal-video-tabs');
+            tabsEl.innerHTML = videos.map((v, i) =>
+                `<button onclick="switchVideo('${v.url}', this)"
+                    class="video-tab px-3 py-1 rounded-full text-xs font-bold border transition ${i === 0 ? 'bg-violet-600 border-violet-500 text-white' : 'bg-transparent border-gray-600 text-gray-400 hover:border-violet-500 hover:text-white'}"
+                >${v.label}</button>`
+            ).join('');
+
             // Reset iframe src to stop previous video, then set new
             const iframe = document.getElementById('modal-video');
             iframe.src = '';
-            setTimeout(() => { iframe.src = a.youtube; }, 50);
+            setTimeout(() => { iframe.src = videos[0].url; }, 50);
 
             document.getElementById('artist-modal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('artist-modal').classList.remove('open');
-            document.body.style.overflow = '';
-            document.getElementById('modal-video').src = '';
+        function switchVideo(url, btn) {
+            document.querySelectorAll('.video-tab').forEach(b => {
+                b.classList.remove('bg-violet-600', 'border-violet-500', 'text-white');
+                b.classList.add('bg-transparent', 'border-gray-600', 'text-gray-400');
+            });
+            btn.classList.add('bg-violet-600', 'border-violet-500', 'text-white');
+            btn.classList.remove('bg-transparent', 'border-gray-600', 'text-gray-400');
+            const iframe = document.getElementById('modal-video');
+            iframe.src = '';
+            setTimeout(() => { iframe.src = url; }, 50);
         }
 
-        document.addEventListener('keydown', e => {
+        function closeModal() {
+            document.getElementById('artist-modal').classList.remove('open');
+            document.getElementById('modal-video').src = '';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeModal();
         });
     </script>
